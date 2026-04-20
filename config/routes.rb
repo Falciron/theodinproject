@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   resources :lessons, only: :show do
     resources :project_submissions, except: :show, controller: 'lessons/project_submissions'
     resource :completion, only: %i[create destroy], controller: 'lessons/completions'
+    resource :sidebar, only: :show, controller: 'lessons/sidebars'
   end
 
   resources :project_submissions, only: :index do

@@ -9,8 +9,10 @@
   <% end %>
 
   <% if current_user %>
-    <div class="shrink-0 scale-75 origin-right">
-      <%= render Complete::IconComponent.new(lesson:, current_user:) %>
-    </div>
+    <%= inline_svg_tag 'icons/checkmark-circle-solid.svg',
+          class: "h-5 w-5 shrink-0 #{completion_icon_color}",
+          aria: true,
+          title: completion_icon_title,
+          data: { test_id: 'lesson-sidebar-completion' } %>
   <% end %>
 </div>

@@ -34,6 +34,14 @@ module Lessons
                 end
         "#{base} #{color}"
       end
+
+      def completion_icon_color
+        lesson.completed? ? 'text-teal-600' : 'text-gray-300 dark:text-gray-700'
+      end
+
+      def completion_icon_title
+        lesson.completed? ? 'Lesson completed' : 'Lesson not completed'
+      end
     end
   end
 end

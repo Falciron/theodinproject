@@ -62,7 +62,7 @@ RSpec.describe Lessons::SidebarComponent, type: :component do
     expect(page).to have_css('aside.hidden.xl\\:block')
   end
 
-  it 'links back to the course' do
+  it 'links back to the course via the course title' do
     data = setup_course
 
     render_inline(described_class.new(
@@ -71,6 +71,38 @@ RSpec.describe Lessons::SidebarComponent, type: :component do
                     current_lesson: data[:lesson_one],
                   ))
 
-    expect(page).to have_link(data[:course].title, count: 2)
+    expect(page).to have_link(data[:course].title, text: data[:course].title, count: 2)
+  end
+
+  context 'when a current_user is given' do
+    it 'renders a course-progress bar reflecting their completions' do
+      data = setup_course
+      user = create(:user)
+      create(:lesson_completion, user:, lesson: data[:lesson_one], course: data[:course])
+
+      render_inline(described_class.new(
+                      course: data[:course],
+                      sections: data[:sections],
+                      current_lesson: data[:lesson_one],
+                      current_user: user,
+                    ))
+
+      expect(page).to have_css('[role="progressbar"][aria-valuenow="50"]', count: 2)
+      expect(page).to have_text('50% complete', count: 2)
+    end
+  end
+
+  context 'when no current_user is given' do
+    it 'does not render a progress bar' do
+      data = setup_course
+
+      render_inline(described_class.new(
+                      course: data[:course],
+                      sections: data[:sections],
+                      current_lesson: data[:lesson_one],
+                    ))
+
+      expect(page).to have_no_css('[role="progressbar"]')
+    end
   end
 end

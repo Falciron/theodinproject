@@ -49,13 +49,34 @@ RSpec.describe Lessons::Sidebar::LessonComponent, type: :component do
   end
 
   context 'when a current_user is given' do
-    it 'renders the completion icon' do
+    it 'renders a non-interactive completion icon' do
       lesson = create(:lesson)
       user = create(:user)
 
       render_inline(described_class.new(lesson:, current_lesson: lesson, current_user: user))
 
-      expect(page).to have_css('[data-test-id="complete-button"]')
+      expect(page).to have_css('[data-test-id="lesson-sidebar-completion"]')
+      expect(page).to have_no_css('[data-test-id="complete-button"]')
+      expect(page).to have_no_css('form')
+    end
+
+    it 'uses teal for completed lessons' do
+      lesson = create(:lesson)
+      lesson.completed = true
+      user = create(:user)
+
+      render_inline(described_class.new(lesson:, current_lesson: lesson, current_user: user))
+
+      expect(page).to have_css('[data-test-id="lesson-sidebar-completion"].text-teal-600')
+    end
+
+    it 'uses muted gray for incomplete lessons' do
+      lesson = create(:lesson)
+      user = create(:user)
+
+      render_inline(described_class.new(lesson:, current_lesson: lesson, current_user: user))
+
+      expect(page).to have_css('[data-test-id="lesson-sidebar-completion"].text-gray-300')
     end
   end
 
@@ -65,7 +86,7 @@ RSpec.describe Lessons::Sidebar::LessonComponent, type: :component do
 
       render_inline(described_class.new(lesson:, current_lesson: lesson))
 
-      expect(page).to have_no_css('[data-test-id="complete-button"]')
+      expect(page).to have_no_css('[data-test-id="lesson-sidebar-completion"]')
     end
   end
 end

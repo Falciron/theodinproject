@@ -44,10 +44,28 @@
       </div>
 
       <div class="flex grow flex-col gap-y-4 overflow-y-auto bg-white dark:bg-gray-900 px-4 pb-6 pt-5">
-        <div class="flex flex-col gap-1">
-          <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Course</span>
+        <div class="flex flex-col gap-2">
+          <%= render Ui::BackLinkComponent.new(path: path_course_path(course.path, course), name: 'Back to course') %>
+
           <%= link_to course.title, path_course_path(course.path, course),
-                class: 'text-sm font-semibold text-gray-800 dark:text-gray-200 no-underline hover:underline' %>
+                class: 'text-lg font-semibold text-gray-800 dark:text-gray-200 no-underline hover:underline' %>
+
+          <% if progress_percentage %>
+            <div>
+              <div class="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-teal-600 dark:bg-teal-500 h-full rounded-full transition-all"
+                     style="width: <%= progress_percentage %>%;"
+                     role="progressbar"
+                     aria-valuenow="<%= progress_percentage %>"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     aria-label="Course progress"></div>
+              </div>
+              <span class="mt-2 block text-xs text-gray-500 dark:text-gray-400">
+                <%= progress_percentage %>% complete
+              </span>
+            </div>
+          <% end %>
         </div>
 
         <nav aria-label="Course contents">
@@ -62,11 +80,29 @@
 
 <%# Static desktop sidebar — xl+ %>
 <aside class="hidden xl:block xl:w-72 xl:shrink-0 border-gray-200 dark:border-gray-800 xl:border-r" data-test-id="lesson-sidebar">
-  <div class="sticky top-12 max-h-[calc(100vh-3rem)] overflow-y-auto pt-10 sm:pt-14 pb-20 pr-4">
-    <div class="mb-4 flex flex-col gap-1">
-      <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Course</span>
+  <div class="sticky top-0 max-h-screen overflow-y-auto pt-4 pb-20 pr-4">
+    <div class="mb-4 flex flex-col gap-2">
+      <%= render Ui::BackLinkComponent.new(path: path_course_path(course.path, course), name: 'Back to course') %>
+
       <%= link_to course.title, path_course_path(course.path, course),
-            class: 'text-sm font-semibold text-gray-800 dark:text-gray-200 no-underline hover:underline' %>
+            class: 'text-lg font-semibold text-gray-800 dark:text-gray-200 no-underline hover:underline' %>
+
+      <% if progress_percentage %>
+        <div>
+          <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-teal-600 h-full rounded-full transition-all"
+                 style="width: <%= progress_percentage %>%;"
+                 role="progressbar"
+                 aria-valuenow="<%= progress_percentage %>"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 aria-label="Course progress"></div>
+          </div>
+          <span class="mt-2 block text-xs text-gray-500 dark:text-gray-400">
+            <%= progress_percentage %>% complete
+          </span>
+        </div>
+      <% end %>
     </div>
 
     <nav aria-label="Course contents">

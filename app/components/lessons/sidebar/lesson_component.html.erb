@@ -1,0 +1,16 @@
+<div class="<%= row_classes %>">
+  <%= link_to lesson_path(lesson),
+        class: link_classes,
+        aria: { current: ('page' if current?) },
+        data: { test_id: 'lesson-sidebar-link' } do %>
+    <%= inline_svg_tag "icons/#{icon_name}.svg",
+          class: 'h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500' %>
+    <span class="truncate"><%= lesson.display_title %></span>
+  <% end %>
+
+  <% if current_user %>
+    <div class="shrink-0 scale-75 origin-right">
+      <%= render Complete::IconComponent.new(lesson:, current_user:) %>
+    </div>
+  <% end %>
+</div>

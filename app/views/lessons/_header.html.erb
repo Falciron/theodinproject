@@ -1,4 +1,15 @@
-<header class="mb-16">
+<header class="mb-16" data-controller="open-menu" data-open-menu-visibility-outlet=".lesson-sidebar-drawer">
+  <div class="xl:hidden mb-6">
+    <button type="button"
+            class="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+            data-action="open-menu#open"
+            aria-controls="lesson-sidebar-drawer"
+            aria-label="Open course contents">
+      <%= inline_svg_tag 'icons/bars-3.svg', class: 'h-5 w-5', aria: true, title: 'Open course contents' %>
+      <span>Course contents</span>
+    </button>
+  </div>
+
   <div class="flex space-y-4 items-center flex-col justify-center xl:space-y-0 xl:space-x-4 xl:flex-row xl:justify-start">
     <%= render Course::BadgeComponent.new(course: lesson.course, options: {show_badge: true }) %>
 

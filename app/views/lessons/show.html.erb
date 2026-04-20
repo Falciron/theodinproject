@@ -5,7 +5,12 @@
        data-controller="lesson-toc diagramming"
        data-lesson-toc-item-classes-value="no-underline hover:text-gray-800 text-sm dark:hover:text-gray-300">
 
-      <%= turbo_frame_tag 'lesson-sidebar-frame', src: lesson_sidebar_path(@lesson), target: '_top', class: 'block' %>
+      <%= turbo_frame_tag 'lesson-sidebar-frame',
+            src: lesson_sidebar_path(@lesson),
+            target: '_top',
+            class: 'block xl:w-72 xl:shrink-0 border-gray-200 dark:border-gray-800 xl:border-r' do %>
+        <%= render 'lessons/sidebar_skeleton' %>
+      <% end %>
 
       <main class="pt-10 sm:pt-14 xl:flex-1 xl:min-w-0">
         <div class="mx-auto xl:max-w-[65ch]">

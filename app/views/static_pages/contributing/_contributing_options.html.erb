@@ -13,13 +13,13 @@
         <% end %>
 
         <% card.with_footer(classes: 'text-center mt-auto') do %>
-            <%= link_to(
-                  'View on GitHub',
-                  github_link(contribution[:path]),
-                  class: 'button button--primary text-base',
-                  target: '_blank',
-                  rel: 'noreferrer'
-                ) %>
+          <%= link_to(
+                "View the #{contribution[:title]} on GitHub",
+                github_link(contribution[:path]),
+                class: 'button button--primary text-base',
+                target: '_blank',
+                rel: 'noreferrer'
+              ) %>
         <% end %>
       <% end %>
     <% end %>
